@@ -7,11 +7,13 @@ $(document).ready(function () {
 
 
 $('.quotes').owlCarousel({
+    slideSpeed:800,
+    paginationSpeed:1200,
     loop:true,
     margin:10,
-  dots:true,
+    dots:true,
     dotsEach: 1,
-  autoplay:true,
+    autoplay:true,
     responsive:{
         0:{
             items:1
@@ -28,7 +30,7 @@ $('.quotes').owlCarousel({
 
 $('.gallery').owlCarousel({
     loop:true,
-  nav:true,
+    nav:true,
     margin:10,
     dots:false,
     responsive:{
@@ -47,7 +49,7 @@ $('.gallery').owlCarousel({
 
 
 
-var mq = window.matchMedia('all and (min-width: 1000px)');
+var mq = window.matchMedia('all and (min-width: 960px)');
 
 
 
@@ -151,7 +153,7 @@ mq.addListener(function(changed) {
 
 });
 
-
+$('.contentgallery').featherlightGallery();
 
 
 });//end
