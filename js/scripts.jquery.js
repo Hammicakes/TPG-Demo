@@ -156,4 +156,23 @@ mq.addListener(function(changed) {
 $('.contentgallery').featherlightGallery();
 
 
+// global vars
+var winWidth = $(window).width();
+var winHeight = $(window).height();
+
+// set initial div height / width
+$('.fullsize').css({
+  'width': winWidth,
+	'height': winHeight,
+});
+
+// make sure div stays full width/height on resize
+$(window).resize(function(){
+   $('.fullsize').css({
+    'width': winWidth,
+    'height': winHeight,
+	});
+});
+
+
 });//end
