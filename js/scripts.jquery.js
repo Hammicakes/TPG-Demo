@@ -97,82 +97,89 @@ function hoverGrow(e) {
   }
 }
 
-function showLinks() {
-  $(this).siblings(".sub").slideToggle();
-}
-
-function sticky(e) {
-
-  var stickyNavTop = $(e).offset().top;
-    var stickyNav = function(){
-    var scrollTop = $(window).scrollTop();
-
-    if (scrollTop > stickyNavTop +800) {
-      $(e).addClass('sticky');
-      if(!mq.matches) {
-        $(e).find(".sub").css('display','none');
-      }
-    } else {
-        $(e).removeClass('sticky');
-      if(!mq.matches) {
-        $(e).find(".sub").css('display','list-item');
-      }
-    }
-    };
-
-  $(window).scroll(function() {
-        stickyNav();
-    });
-
-
-}
-
-if ($('.sub_nav')[0]){
-    sticky('.sub_nav');
-} else {
-    sticky('.nav');
-}
-
-if(!mq.matches) {
-  $(".open").addClass("mobile");
-  $(".mobile").on('click', showLinks);
-}
-
-
-mq.addListener(function(changed) {
-
-  if(mq.matches) {
-    $("header").find(".sub").css('display','list-item');
-    $(".open").removeClass("mobile");
-  }
-
-  if(!mq.matches) {
-    $(".open").addClass("mobile");
-//     $(".mobile").on('click', showLinks);
-  }
-
-});
 
 $('.contentgallery').featherlightGallery();
 
+// make all internal page navs sticky
+//sticky('.internal_nav');
 
-// global vars
-var winWidth = $(window).width();
-var winHeight = $(window).height();
 
-// set initial div height / width
-$('.fullsize').css({
-  'width': winWidth,
-	'height': winHeight,
+
+//Slide Navigation on page scroll
+$(window).scroll(function () {
+  if ($(window).scrollTop() > 120) {
+      $(".make-sticky").addClass("scrolling");
+  }
+  if ($(window).scrollTop() < 119) {
+      $(".make-sticky").removeClass("scrolling");
+  }
 });
 
-// make sure div stays full width/height on resize
-$(window).resize(function(){
-   $('.fullsize').css({
-    'width': winWidth,
-    'height': winHeight,
-	});
+
+
+
+
+// GALLERIES
+
+// Each modal content group needs a gallery number unique to that page (contentgallery_00) associated with the link
+
+// On the demo, galleries cycle through visible and hidden content. When new content is loaded dynamically, only visibile content will be cycled through.
+
+var gal = document.querySelectorAll('[class*=contentgallery_]');
+
+var classes = new Array();
+
+for (var i = 0; i < gal.length; i++) {
+  classes.push((gal[i]).className);
+}
+
+var uniqueClasses = [];
+$.each(classes, function(i, el){
+    if($.inArray(el, uniqueClasses) === -1) uniqueClasses.push(el);
 });
+
+
+for (i = 0; i < uniqueClasses.length; i++) {
+  var gallerySet = (uniqueClasses[i]);
+    $('.'+gallerySet).featherlightGallery();
+//   console.log(uniqueClasses[i]);
+}
+
+function showMore() {
+  if ($(this).html() == 'See More'){
+    $(this).html('See Less');
+  } else {
+  $(this).html('See More');
+  }
+
+
+  $(this).siblings(".more").slideToggle();
+}
+
+$(".seemore").on('click', showMore);
+
+if (window.location.href.indexOf("#") > -1){
+  var hash = window.location.hash;
+  $('html, body').animate({
+    scrollTop: $(hash).offset().top - 120}, 1000);
+}
+
+$("#internalLinks a").click(function(){
+    var target = $(this.hash);
+    $('html,body').animate({
+          scrollTop: target.offset().top -120
+        }, 1000);
+        return false;
+});
+
+/* for demonstration purposes only */
+  $('.navbar-toggle').click(function(){
+    if( $(this).hasClass('collapsed') ){
+      $(this).removeClass('collapsed');
+    }else{
+      $(this).addClass('collapsed');
+    }
+   })
 
 
 });//end
