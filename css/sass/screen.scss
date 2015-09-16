@@ -274,8 +274,6 @@ img {
   -ms-transition: all .5s ease-in-out;
   transition: all .5s ease-in-out;
 
-
-
   @media screen and (min-width: $bp-desk) {
     height:80px;
   }//break
@@ -623,7 +621,7 @@ img {
     z-index:2;
 
     @media screen and (min-width: $bp-tablet) {
-      padding-top:10%;
+      padding-top:5%;
       padding-bottom:5%;
     }//break
 
